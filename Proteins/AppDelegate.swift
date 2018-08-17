@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Thread.sleep(forTimeInterval: 2.0)
+//        Thread.sleep(forTimeInterval: 2.0)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ListController())
+        window?.rootViewController = UINavigationController(rootViewController: TouchController())
         return true
     }
 
