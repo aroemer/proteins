@@ -12,37 +12,27 @@ import LocalAuthentication
 class TouchController: UIViewController {
     
     let background: UIImageView = {
-        let image = UIImage(named: "background")
+        let image = UIImage(named: "molecules")
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
     lazy var touchIDButton: UIButton = {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        let fingerprint = UIImage(named: "fingerprint") as UIImage?
-//        button.setTitle("Sign in", for: .normal)
-//        button.setImage(fingerprint, for: .normal)
-////        button.titleLabel?.font = .futuraBook(ofSize: 25.2)
-//        button.addTarget(self, action: #selector(handleTouchID), for: .touchUpInside)
-//        return button
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign in", for: .normal)
-//        button.backgroundColor = .blue
+        let fingerprint = UIImage(named: "fingerprint") as UIImage?
+        button.setBackgroundImage(fingerprint, for: .normal)
         button.addTarget(self, action: #selector(handleTouchID), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(touchIDButton)
-//        view.addSubview(background)
-        
-        
-        setupLayouts()
+        view.backgroundColor = .white
+        addSubviews()
+        self.setupConstraints()
     }
     
     func showAlertController(_ message: String) {
@@ -51,19 +41,23 @@ class TouchController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func setupLayouts() {
-        touchIDButton.backgroundColor = .blue
+    func addSubviews() {
+        self.view.addSubview(background)
+        self.view.addSubview(touchIDButton)
 
-        touchIDButton.center = view.center
-        touchIDButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        touchIDButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
-//        _ = touchIDButton.center(view)
+    }
+    
+    func setupConstraints() {
+        touchIDButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        touchIDButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        touchIDButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 100.0).isActive = true
+        touchIDButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100.0).isActive = true
     }
     
     @objc func handleTouchID() {
         let context = LAContext()
         var error: NSError?
-        
+
         // check if Touch ID is available
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "Authenticate with Touch ID"
@@ -71,8 +65,8 @@ class TouchController: UIViewController {
                 {(success : Bool, error: Error?) -> Void in
                     if success {
                         self.showAlertController("Touch ID Authentication Succeeded")
-                        //                        self.performSegue(withIdentifier: "toTheList", sender: self.view)
-                        
+                        // self.performSegue(withIdentifier: "toTheList", sender: self.view)
+
                     }
                     else {
                         self.showAlertController("Touch ID Authentication Failed")
@@ -80,7 +74,7 @@ class TouchController: UIViewController {
             })
         }
         else {
-            self.touchIDButton.isHidden = true
+//            self.touchIDButton.isHidden = true
         }
     }
 }
