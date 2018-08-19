@@ -10,6 +10,8 @@
 		94A3B77F2126D64D001AAC40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A3B77E2126D64D001AAC40 /* AppDelegate.swift */; };
 		94A3B7862126D64E001AAC40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94A3B7852126D64E001AAC40 /* Assets.xcassets */; };
 		94A3B7892126D64E001AAC40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94A3B7872126D64E001AAC40 /* LaunchScreen.storyboard */; };
+		94A433D42129ACCC007933E0 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94A433D32129ACCC007933E0 /* ligands.txt */; };
+		94A433D62129B116007933E0 /* ProteinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A433D52129B116007933E0 /* ProteinCell.swift */; };
 		94A5BF012126D6EE00AA4090 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5BF002126D6EE00AA4090 /* ListController.swift */; };
 		94A5BF032126FF4800AA4090 /* TouchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5BF022126FF4700AA4090 /* TouchController.swift */; };
 /* End PBXBuildFile section */
@@ -20,6 +22,8 @@
 		94A3B7852126D64E001AAC40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94A3B7882126D64E001AAC40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94A3B78A2126D64E001AAC40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94A433D32129ACCC007933E0 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ligands.txt; path = "../../../Downloads/SwiftyProteins 2/SwiftyProteins/ligands.txt"; sourceTree = "<group>"; };
+		94A433D52129B116007933E0 /* ProteinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinCell.swift; sourceTree = "<group>"; };
 		94A5BF002126D6EE00AA4090 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		94A5BF022126FF4700AA4090 /* TouchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,13 +67,23 @@
 		94A3B77D2126D64D001AAC40 /* Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				94A433D32129ACCC007933E0 /* ligands.txt */,
 				94A3B77E2126D64D001AAC40 /* AppDelegate.swift */,
 				76AA097C2128B176004D7323 /* Controllers */,
-				94A3B7852126D64E001AAC40 /* Assets.xcassets */,
+				94A433D72129B120007933E0 /* Views */,
 				94A3B7872126D64E001AAC40 /* LaunchScreen.storyboard */,
+				94A3B7852126D64E001AAC40 /* Assets.xcassets */,
 				94A3B78A2126D64E001AAC40 /* Info.plist */,
 			);
 			path = Proteins;
+			sourceTree = "<group>";
+		};
+		94A433D72129B120007933E0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				94A433D52129B116007933E0 /* ProteinCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94A3B7892126D64E001AAC40 /* LaunchScreen.storyboard in Resources */,
+				94A433D42129ACCC007933E0 /* ligands.txt in Resources */,
 				94A3B7862126D64E001AAC40 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94A5BF012126D6EE00AA4090 /* ListController.swift in Sources */,
+				94A433D62129B116007933E0 /* ProteinCell.swift in Sources */,
 				94A3B77F2126D64D001AAC40 /* AppDelegate.swift in Sources */,
 				94A5BF032126FF4800AA4090 /* TouchController.swift in Sources */,
 			);
