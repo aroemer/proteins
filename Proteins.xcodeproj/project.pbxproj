@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76D72EC8213092C300C52D82 /* TableView + Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D72EC7213092C300C52D82 /* TableView + Search.swift */; };
+		76D72ECB2130941E00C52D82 /* Ligands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D72ECA2130941E00C52D82 /* Ligands.swift */; };
+		76D72ECD2130A90400C52D82 /* LigandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D72ECC2130A90400C52D82 /* LigandController.swift */; };
 		94A3B77F2126D64D001AAC40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A3B77E2126D64D001AAC40 /* AppDelegate.swift */; };
 		94A3B7862126D64E001AAC40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94A3B7852126D64E001AAC40 /* Assets.xcassets */; };
 		94A3B7892126D64E001AAC40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94A3B7872126D64E001AAC40 /* LaunchScreen.storyboard */; };
@@ -17,12 +20,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		76D72EC7213092C300C52D82 /* TableView + Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView + Search.swift"; sourceTree = "<group>"; };
+		76D72ECA2130941E00C52D82 /* Ligands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ligands.swift; sourceTree = "<group>"; };
+		76D72ECC2130A90400C52D82 /* LigandController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandController.swift; sourceTree = "<group>"; };
 		94A3B77B2126D64D001AAC40 /* Proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proteins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94A3B77E2126D64D001AAC40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94A3B7852126D64E001AAC40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94A3B7882126D64E001AAC40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94A3B78A2126D64E001AAC40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94A433D32129ACCC007933E0 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ligands.txt; path = "../../../Downloads/SwiftyProteins 2/SwiftyProteins/ligands.txt"; sourceTree = "<group>"; };
+		94A433D32129ACCC007933E0 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ligands.txt; path = Proteins/ligands.txt; sourceTree = SOURCE_ROOT; };
 		94A433D52129B116007933E0 /* ProteinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinCell.swift; sourceTree = "<group>"; };
 		94A5BF002126D6EE00AA4090 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		94A5BF022126FF4700AA4090 /* TouchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchController.swift; sourceTree = "<group>"; };
@@ -43,9 +49,26 @@
 			isa = PBXGroup;
 			children = (
 				94A5BF002126D6EE00AA4090 /* ListController.swift */,
+				76D72ECC2130A90400C52D82 /* LigandController.swift */,
 				94A5BF022126FF4700AA4090 /* TouchController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		76D72EC62130929F00C52D82 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				76D72EC7213092C300C52D82 /* TableView + Search.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		76D72EC92130940600C52D82 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76D72ECA2130941E00C52D82 /* Ligands.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		94A3B7722126D64D001AAC40 = {
@@ -67,6 +90,8 @@
 		94A3B77D2126D64D001AAC40 /* Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				76D72EC92130940600C52D82 /* Models */,
+				76D72EC62130929F00C52D82 /* Extensions */,
 				94A433D32129ACCC007933E0 /* ligands.txt */,
 				94A3B77E2126D64D001AAC40 /* AppDelegate.swift */,
 				76AA097C2128B176004D7323 /* Controllers */,
@@ -113,7 +138,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Audrey ROEMER";
 				TargetAttributes = {
 					94A3B77A2126D64D001AAC40 = {
@@ -160,7 +185,10 @@
 			files = (
 				94A5BF012126D6EE00AA4090 /* ListController.swift in Sources */,
 				94A433D62129B116007933E0 /* ProteinCell.swift in Sources */,
+				76D72ECB2130941E00C52D82 /* Ligands.swift in Sources */,
 				94A3B77F2126D64D001AAC40 /* AppDelegate.swift in Sources */,
+				76D72ECD2130A90400C52D82 /* LigandController.swift in Sources */,
+				76D72EC8213092C300C52D82 /* TableView + Search.swift in Sources */,
 				94A5BF032126FF4800AA4090 /* TouchController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +221,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -200,6 +229,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -250,6 +280,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -257,6 +288,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
