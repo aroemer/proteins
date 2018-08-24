@@ -68,7 +68,8 @@ class ListController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ProteinCell
         DispatchQueue.main.async() {
-            if self.isSearching {
+            if self.isSearching && self.filteredLigands.count != 0 {
+                print(self.filteredLigands.count)
                 cell.textLabel?.text = self.filteredLigands[indexPath.row].name
             }
             else {
@@ -99,6 +100,7 @@ class ListController: UITableViewController {
         else {
             detailVC.record = dictLigand[indexPath.row]
         }
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -109,8 +111,8 @@ class ListController: UITableViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        searchBar.text = ""
-        isSearching = false
+//        searchBar.text = ""
+//        isSearching = false
     }
     
 }

@@ -18,6 +18,7 @@ class LigandController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         view.addSubview(nameTF)
         view.backgroundColor = .red
         setUpValues()
