@@ -21,7 +21,22 @@ class LigandController: UIViewController {
 //        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         view.addSubview(nameTF)
         view.backgroundColor = .red
-        setUpValues()
+//        setUpValues()
+        let myURLString = "https://files.rcsb.org/ligands/\(String(describing: record.name.first!))/\(record.name)/\(record.name)_ideal.pdb"
+        print(myURLString)
+        
+        guard let myURL = URL(string: myURLString) else {
+            print("Error: \(myURLString) doesn't seem to be a valid URL")
+            return
+        }
+        do {
+            let myHTMLString = try String(contentsOf: myURL, encoding: String.Encoding.utf8)
+            DispatchQueue.main.async {
+                print(myHTMLString)
+            }
+        } catch let error {
+            print("Error: \(error)")
+        }
         
     }
     

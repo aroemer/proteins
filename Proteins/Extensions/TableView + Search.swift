@@ -31,8 +31,6 @@ extension ListController : UISearchBarDelegate {
         let searchPredicate = searchBar.text!
 //        filteredLigands = dictLigand.filter( {$0.name.range(of: searchPredicate) != nil})
         filteredLigands = dictLigand.filter( { $0.name.contains(searchPredicate)})
-
-//        filteredLigands.sort {$0.name < $1.name}
         isSearching = (filteredLigands.count == 0) ? false: true
         tableView?.reloadData()
     }

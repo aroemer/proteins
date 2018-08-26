@@ -17,9 +17,8 @@ class ListController: UITableViewController {
     private let reuseId = "reuseId"
     
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: 40))
-    let topOffset: CGFloat = 64
+    let topOffset: CGFloat = 64 // a modifier avec autolayout
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
@@ -46,13 +45,11 @@ class ListController: UITableViewController {
                     dictLigand.append(Ligands(name: ligand))
                 }
                 dictLigand.removeLast()
-
             }
             catch let error as NSError {
                 print("Error: \(error)")
             }
         }
-        
         view.addSubview(searchBar)
         searchBar.delegate = self
     }
@@ -69,7 +66,6 @@ class ListController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ProteinCell
         DispatchQueue.main.async() {
             if self.isSearching && self.filteredLigands.count != 0 {
-                print(self.filteredLigands.count)
                 cell.textLabel?.text = self.filteredLigands[indexPath.row].name
             }
             else {
