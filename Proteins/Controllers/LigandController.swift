@@ -14,6 +14,8 @@ class LigandController: UIViewController {
     var  record = Ligands()
     var  delegate: ListController!
     var dictAtom = [Atoms]()
+//    var segmentedControl: UISegmentedControl!
+
     
     let nameTF = UILabel(frame: CGRect(x: 20, y: 50, width: 200, height: 30))
     
@@ -21,6 +23,9 @@ class LigandController: UIViewController {
         super.viewDidLoad()
 //        UIApplication.shared.isNetworkActivityIndicatorVisible = false
 //        view.backgroundColor = .red
+        
+//        segmentedControl = UISegmentedControl(items: ["Tweets", "Media", "Likes"])
+//        self.addSubview(segmentedControl)
 
         sceneSetup()
         setUpValues()
@@ -112,5 +117,14 @@ class LigandController: UIViewController {
         nameTF.textColor = .white
         nameTF.textAlignment = .center
         view.addSubview(nameTF)
+    }
+    
+    func setUpConstraints() {
+//        let edgesInset: CGFloat = 10.0
+//        let centerOffset: CGFloat = 62.0
+//        segmentedControl.autoPinEdge(toSuperviewEdge: .bottom, withInset: edgesInset)
+//        segmentedControl.autoPinEdge(toSuperviewEdge: .left, withInset: edgesInset)
+//        segmentedControl.autoPinEdge(toSuperviewEdge: .right, withInset: edgesInset)
+        
     }
 }
