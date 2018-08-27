@@ -10,4 +10,6 @@ import Foundation
 
 struct Ligands {
     var name: String = ""
+    var atoms: [Atoms] = []
+    
 }

@@ -42,7 +42,7 @@ class ListController: UITableViewController {
             do {
                 let fullText = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 for ligand in fullText.components(separatedBy: "\n") {
-                    dictLigand.append(Ligands(name: ligand))
+                    dictLigand.append(Ligands(name: ligand, atoms: []))
                 }
                 dictLigand.removeLast()
             }
