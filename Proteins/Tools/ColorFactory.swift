@@ -14,7 +14,7 @@ class ColorFactory {
         
         switch atom.name {
         case "C" :
-            return Color(r: 200, g: 200, b: 200) // Carbon
+            return Color(r: 105, g: 105, b: 105) // Carbon
         case "O" :
             return Color(r: 240, g:   0, b:   0) // Oxygen
         case "H" :

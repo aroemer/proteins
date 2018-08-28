@@ -14,6 +14,11 @@ class LigandController: UIViewController {
     var  record = Ligands()
     var  delegate: ListController!
     var dictAtom = [Atoms]()
+    let scene = SCNScene()
+
+//    var dictConect: [String]
+//    var scene = SCNScene()
+
 //    var segmentedControl: UISegmentedControl!
 
     
@@ -39,12 +44,34 @@ class LigandController: UIViewController {
             let myHTMLString = try String(contentsOf: myURL, encoding: String.Encoding.utf8)
             DispatchQueue.main.async {
                 for atom in myHTMLString.components(separatedBy: "\n") {
+                    var atomDetails = atom.split(separator: " ")
+
                     if atom.starts(with: "ATOM") {
-                        let atomDetails = atom.split(separator: " ")
                         self.dictAtom.append(Atoms(id: Int(atomDetails[1])!, x: Float(atomDetails[6])!, y: Float(atomDetails[7])!, z: Float(atomDetails[8])!, name: String(atomDetails[11])))
+                        print(self.dictAtom.count)
                     }
                     if atom.starts(with: "CONECT") {
 //                        print("conect: \(atom)")
+                        let fromId : Int = Int(atomDetails[1])!
+                        let fromAtom = self.getAtom(id: fromId)
+
+                        let to = atomDetails[2..<atomDetails.count]
+                        for elem in to {
+                            let toAtom = self.getAtom(id: Int(elem)!)
+                            let CylNode = LineNode(
+                                parent: self.scene.rootNode,
+                                source:    SCNVector3(x:fromAtom!.x, y:fromAtom!.y, z:fromAtom!.z),
+                                destination: SCNVector3(x:toAtom!.x, y:toAtom!.y, z:toAtom!.z),
+                                radius: 0.2,
+                                radSegmentCount: 6,
+                                color: UIColor.darkGray
+                            )
+                            self.scene.rootNode.addChildNode(CylNode)
+                            
+                        }
+
+//                        self.dictConect.append(String(atomDetails))
+                        
                     }
                 }
                 self.record.atoms = self.dictAtom
@@ -60,8 +87,14 @@ class LigandController: UIViewController {
         
     }
     
+    func getAtom(id:Int) -> Atoms?{
+        if let atom = dictAtom.first(where: { $0.id == id }) {
+            return (atom)
+        }
+        return nil
+    }
+    
     func sceneSetup() {
-        let scene = SCNScene()
         
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
@@ -92,11 +125,12 @@ class LigandController: UIViewController {
         for atom in record.atoms {
             var col: Color
             col = ColorFactory.makeCPKColor(atom: atom)
-            print(atom)
-            let sphereGeometry = SCNSphere(radius: 1.0)
+//            print(atom)
+            let sphereGeometry = SCNSphere(radius: 0.5)
             let sphereNode = SCNNode(geometry: sphereGeometry)
             sphereGeometry.firstMaterial?.diffuse.contents = UIColor(red: CGFloat(col.r) / 255.0, green: CGFloat(col.g) / 255.0, blue: CGFloat(col.b) / 255.0, alpha: 1)
-            sphereNode.position = SCNVector3(x: atom.x * 1.5, y: atom.y * 1.5, z: atom.z * 1.5)
+            sphereNode.position = SCNVector3(x: atom.x, y: atom.y, z: atom.z)
+            sphereNode.name = atom.name
             scene.rootNode.addChildNode(sphereNode)
         }
         
@@ -130,11 +164,28 @@ class LigandController: UIViewController {
     }
     
     func setUpConstraints() {
+        //add autolayout contstraints
+//        sceneView.translatesAutoresizingMaskIntoConstraints = false
+//        sceneView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+//        sceneView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+//        sceneView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+//        sceneView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
 //        let edgesInset: CGFloat = 10.0
 //        let centerOffset: CGFloat = 62.0
 //        segmentedControl.autoPinEdge(toSuperviewEdge: .bottom, withInset: edgesInset)
 //        segmentedControl.autoPinEdge(toSuperviewEdge: .left, withInset: edgesInset)
 //        segmentedControl.autoPinEdge(toSuperviewEdge: .right, withInset: edgesInset)
         
+    }
+    
+    
+}
+private extension SCNVector3{
+    func distance(receiver:SCNVector3) -> Float{
+        let xd = receiver.x - self.x
+        let yd = receiver.y - self.y
+        let zd = receiver.z - self.z
+        let distance = Float(sqrt(xd * xd + yd * yd + zd * zd))
+        return (distance)
     }
 }
