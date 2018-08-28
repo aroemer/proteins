@@ -82,9 +82,9 @@ class ListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
-            return filteredLigands.count
+            return filteredLigands.count 
         }
-        return dictLigand.count
+        return dictLigand.count 
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

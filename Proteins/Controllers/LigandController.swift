@@ -27,7 +27,6 @@ class LigandController: UIViewController {
 //        segmentedControl = UISegmentedControl(items: ["Tweets", "Media", "Likes"])
 //        self.addSubview(segmentedControl)
 
-        sceneSetup()
         setUpValues()
         let myURLString = "https://files.rcsb.org/ligands/\(String(describing: record.name.first!))/\(record.name)/\(record.name)_ideal.pdb"
         print(myURLString)
@@ -49,7 +48,9 @@ class LigandController: UIViewController {
                     }
                 }
                 self.record.atoms = self.dictAtom
-                print(self.record)
+                self.sceneSetup()
+
+//                print(self.record)
 //                print(myHTMLString)
             }
         }
@@ -88,20 +89,29 @@ class LigandController: UIViewController {
         scnView.pointOfView = cameraNode
         // scnView.showsStatistics = true
         
-        let sphereGeometry = SCNSphere(radius: 1.0)
-        let sphereNode = SCNNode(geometry: sphereGeometry)
-        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.red
+        for atom in record.atoms {
+            var col: Color
+            col = ColorFactory.makeCPKColor(atom: atom)
+            print(atom)
+            let sphereGeometry = SCNSphere(radius: 1.0)
+            let sphereNode = SCNNode(geometry: sphereGeometry)
+            sphereGeometry.firstMaterial?.diffuse.contents = UIColor(red: CGFloat(col.r) / 255.0, green: CGFloat(col.g) / 255.0, blue: CGFloat(col.b) / 255.0, alpha: 1)
+            sphereNode.position = SCNVector3(x: atom.x * 1.5, y: atom.y * 1.5, z: atom.z * 1.5)
+            scene.rootNode.addChildNode(sphereNode)
+        }
+        
+        
+//        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.red
 
         
-        scene.rootNode.addChildNode(sphereNode)
         
-        let secondSphereGeometry = SCNSphere(radius: 0.5)
-        let secondSphereNode = SCNNode(geometry: secondSphereGeometry)
-        //color
-        secondSphereGeometry.firstMaterial?.diffuse.contents = UIColor.green
-        //position
-        secondSphereNode.position = SCNVector3(x: 3.0, y: 0.0, z: 0.0)
-        scene.rootNode.addChildNode(secondSphereNode)
+//        let secondSphereGeometry = SCNSphere(radius: 0.5)
+//        let secondSphereNode = SCNNode(geometry: secondSphereGeometry)
+//        //color
+//        secondSphereGeometry.firstMaterial?.diffuse.contents = UIColor.green
+//        //position
+//        secondSphereNode.position = SCNVector3(x: 3.0, y: 0.0, z: 0.0)
+//        scene.rootNode.addChildNode(secondSphereNode)
 
 
         
@@ -112,7 +122,7 @@ class LigandController: UIViewController {
     }
     
     func setUpValues() {
-        print(record.name)
+//        print(record.name)
         nameTF.text = record.name
         nameTF.textColor = .white
         nameTF.textAlignment = .center
