@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Atoms {
     let id: Int
@@ -14,5 +15,16 @@ struct Atoms {
     let y: Float
     let z: Float
     let name: String
+    
+//    init( id: Int,
+//          x: Float,
+//          y: Float,
+//          z: Float,
+//          name: String
+//        )
+//    {
+    
+//    }
+    
 }
 

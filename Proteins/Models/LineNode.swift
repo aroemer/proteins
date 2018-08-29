@@ -89,16 +89,7 @@ class LineNode: SCNNode
 
 
 private extension SCNVector3 {
-    /**
-     Initializes a cylinder line between two points
-     
-     ```
-     let  distance = source.distance(destination)
-     ```
-     
-     - Parameters:
-     - receiver: Coordinates of the second point
-     */
+
     func distance(receiver:SCNVector3) -> Float{
         let xd = receiver.x - self.x
         let yd = receiver.y - self.y

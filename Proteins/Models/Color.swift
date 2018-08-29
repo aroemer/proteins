@@ -11,6 +11,6 @@ import Foundation
 struct Color {
     
     var r: Int = 0,
-    g: Int = 0,
-    b: Int = 0
+        g: Int = 0,
+        b: Int = 0
 }

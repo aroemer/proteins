@@ -45,13 +45,13 @@ class LigandController: UIViewController {
             DispatchQueue.main.async {
                 for atom in myHTMLString.components(separatedBy: "\n") {
                     var atomDetails = atom.split(separator: " ")
-
+                    print(atom)
                     if atom.starts(with: "ATOM") {
+//                        print(atom)
                         self.dictAtom.append(Atoms(id: Int(atomDetails[1])!, x: Float(atomDetails[6])!, y: Float(atomDetails[7])!, z: Float(atomDetails[8])!, name: String(atomDetails[11])))
-                        print(self.dictAtom.count)
                     }
                     if atom.starts(with: "CONECT") {
-//                        print("conect: \(atom)")
+//                        print(atom)
                         let fromId : Int = Int(atomDetails[1])!
                         let fromAtom = self.getAtom(id: fromId)
 
@@ -68,6 +68,7 @@ class LigandController: UIViewController {
                             )
                             self.scene.rootNode.addChildNode(CylNode)
                             
+                            
                         }
 
 //                        self.dictConect.append(String(atomDetails))
@@ -80,6 +81,7 @@ class LigandController: UIViewController {
 //                print(self.record)
 //                print(myHTMLString)
             }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         catch let error {
             print("Error: \(error)")
@@ -133,6 +135,7 @@ class LigandController: UIViewController {
             sphereNode.name = atom.name
             scene.rootNode.addChildNode(sphereNode)
         }
+        
         
         
 //        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.red

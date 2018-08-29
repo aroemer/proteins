@@ -90,13 +90,13 @@ class ListController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = LigandController()
         detailVC.delegate = self
-        if isSearching {
+        if isSearching && self.filteredLigands.count != 0 {
             detailVC.record = filteredLigands[indexPath.row]
         }
         else {
             detailVC.record = dictLigand[indexPath.row]
         }
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

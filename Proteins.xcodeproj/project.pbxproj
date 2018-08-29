@@ -85,6 +85,7 @@
 				76D72ECA2130941E00C52D82 /* Ligands.swift */,
 				764D5C6E21345A7B00D95104 /* Atoms.swift */,
 				764E326D2135A35000366E8C /* Color.swift */,
+				764E32712135FDFC00366E8C /* LineNode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -118,7 +119,6 @@
 				94A3B7872126D64E001AAC40 /* LaunchScreen.storyboard */,
 				94A3B7852126D64E001AAC40 /* Assets.xcassets */,
 				94A3B78A2126D64E001AAC40 /* Info.plist */,
-				764E32712135FDFC00366E8C /* LineNode.swift */,
 			);
 			path = Proteins;
 			sourceTree = "<group>";
