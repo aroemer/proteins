@@ -13,6 +13,7 @@ class ListController: UITableViewController {
     var dictLigand = [Ligands]()
     var filteredLigands = [Ligands]()
     var isSearching: Bool = false
+    private let ligandController = LigandController()
 
     private let reuseId = "reuseId"
     
@@ -21,16 +22,27 @@ class ListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createLigandArray()
+        setupTableView()
+
         self.clearsSelectionOnViewWillAppear = false
         view.backgroundColor = .white
         title = "Ligands"
-        setupTableView()
-//        setupNavBar()
-//        handleLogout()
-//        LoginService.shared.delegate = self
-//        addController.delegate = self
+    
         
+        view.addSubview(searchBar)
+        searchBar.delegate = self
+    }
+    
+    func setupTableView() {
+        tableView.contentInset = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
+//        tableView.backgroundColor = .lightGray
+        tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
         
+    }
+    
+    func createLigandArray() {
         guard let path = Bundle.main.path(forResource: "ligands", ofType: "txt")
             else {
                 print("incorrect path")
@@ -42,7 +54,7 @@ class ListController: UITableViewController {
             do {
                 let fullText = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 for ligand in fullText.components(separatedBy: "\n") {
-                    dictLigand.append(Ligands(name: ligand, atoms: []))
+                    dictLigand.append(Ligands(name: ligand, atoms: [], image: UIImage(named: "atom")!))
                 }
                 dictLigand.removeLast()
             }
@@ -50,34 +62,36 @@ class ListController: UITableViewController {
                 print("Error: \(error)")
             }
         }
-        view.addSubview(searchBar)
-        searchBar.delegate = self
+        print(dictLigand)
     }
-    
-    func setupTableView() {
-        tableView.contentInset = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        tableView.backgroundColor = .lightGray
-        tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
-        
-    }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ProteinCell
         DispatchQueue.main.async() {
             if self.isSearching && self.filteredLigands.count != 0 {
-                cell.textLabel?.text = self.filteredLigands[indexPath.row].name
+                cell.ligand = self.filteredLigands[indexPath.row]
             }
             else {
-                cell.textLabel?.text = self.dictLigand[indexPath.row].name
+                cell.ligand = self.dictLigand[indexPath.row]
             }
         }
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = .listDarkGray
+        }
+        else {
+            cell.backgroundColor = .listLighterGray
+        }
+        cell.textLabel?.textColor = .white
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .listSelectedGray
+        cell.selectedBackgroundView = backgroundView
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return 50
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,16 +102,16 @@ class ListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = LigandController()
-        detailVC.delegate = self
+        let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
+        selectedCell.contentView.backgroundColor = .listSelectedGray
         if isSearching && self.filteredLigands.count != 0 {
-            detailVC.record = filteredLigands[indexPath.row]
+            ligandController.record = filteredLigands[indexPath.row]
         }
         else {
-            detailVC.record = dictLigand[indexPath.row]
+            ligandController.record = dictLigand[indexPath.row]
         }
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        navigationController?.pushViewController(detailVC, animated: true)
+        navigationController?.pushViewController(ligandController, animated: true)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

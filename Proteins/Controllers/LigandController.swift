@@ -11,7 +11,12 @@ import SceneKit
 
 class LigandController: UIViewController {
     
-    var  record = Ligands()
+    var  record: Ligands? {
+        didSet {
+            guard let ligand = record else { return }
+            title = ligand.name
+        }
+    }
     var  delegate: ListController!
     var dictAtom = [Atoms]()
     let scene = SCNScene()
@@ -33,7 +38,7 @@ class LigandController: UIViewController {
 //        self.addSubview(segmentedControl)
 
         setUpValues()
-        let myURLString = "https://files.rcsb.org/ligands/\(String(describing: record.name.first!))/\(record.name)/\(record.name)_ideal.pdb"
+        let myURLString = "https://files.rcsb.org/ligands/\(String(describing: record!.name.first!))/\(String(describing: record!.name))/\(String(describing: record!.name))_ideal.pdb"
         print(myURLString)
         
         guard let myURL = URL(string: myURLString) else {
@@ -75,7 +80,7 @@ class LigandController: UIViewController {
                         
                     }
                 }
-                self.record.atoms = self.dictAtom
+                self.record?.atoms = self.dictAtom
                 self.sceneSetup()
 
 //                print(self.record)
@@ -124,7 +129,7 @@ class LigandController: UIViewController {
         scnView.pointOfView = cameraNode
         // scnView.showsStatistics = true
         
-        for atom in record.atoms {
+        for atom in (record?.atoms)! {
             var col: Color
             col = ColorFactory.makeCPKColor(atom: atom)
 //            print(atom)
@@ -160,7 +165,7 @@ class LigandController: UIViewController {
     
     func setUpValues() {
 //        print(record.name)
-        nameTF.text = record.name
+        nameTF.text = record?.name
         nameTF.textColor = .white
         nameTF.textAlignment = .center
         view.addSubview(nameTF)

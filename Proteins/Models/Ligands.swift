@@ -10,8 +10,9 @@ import Foundation
 import SceneKit
 
 struct Ligands {
-    var name: String = ""
-    var atoms: [Atoms] = []
+    var name: String
+    var atoms: [Atoms]
+    var image: UIImage
     
     /// private middle SCNVector
 //    private lazy var middleSCNVector3 = SCNVector3()

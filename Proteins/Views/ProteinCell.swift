@@ -6,16 +6,47 @@
 //  Copyright © 2018 Audrey ROEMER. All rights reserved.
 //
 
+//https://medium.com/@kemalekren/swift-create-custom-tableview-cell-with-programmatically-in-ios-835d3880513d
+
 import UIKit
 
 class ProteinCell: UITableViewCell {
-
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
+    var ligand: Ligands? {
+        didSet {
+            guard let ligand = ligand else { return }
+            ligandImage.image = ligand.image
+            ligandLabel.text = ligand.name
+            
+        }
     }
     
-//    override func setSelected(_ selected: Bool, animated: Bool) {}
-//    override func setHighlighted(_ highlighted: Bool, animated: Bool) {}
+    private let ligandLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .white
+        lbl.font = UIFont.boldSystemFont(ofSize: 16)
+        lbl.textAlignment = .left
+        return lbl
+    }()
+    
+    private let ligandImage : UIImageView = {
+        let imgView = UIImageView()
+//        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.contentMode = .scaleAspectFit
+        imgView.clipsToBounds = true
+        return imgView
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(ligandImage)
+        addSubview(ligandLabel)
+        
+        
+        ligandImage.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 90, height: 0, enableInsets: false)
+        ligandLabel.anchor(top: topAnchor, left: ligandImage.rightAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width / 2, height: 0, enableInsets: false)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
