@@ -13,7 +13,6 @@ class ListController: UITableViewController {
     var dictLigand = [Ligands]()
     var filteredLigands = [Ligands]()
     var isSearching: Bool = false
-    private let ligandController = LigandController()
 
     private let reuseId = "reuseId"
     
@@ -62,7 +61,6 @@ class ListController: UITableViewController {
                 print("Error: \(error)")
             }
         }
-        print(dictLigand)
     }
 
     
@@ -102,8 +100,11 @@ class ListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let ligandController = LigandController()
+        ligandController.delegate = self
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
+//        ligandController.delegate = self
         if isSearching && self.filteredLigands.count != 0 {
             ligandController.record = filteredLigands[indexPath.row]
         }

@@ -9,25 +9,9 @@
 import UIKit
 import SceneKit
 
-/// Line represent by a cylinder between two points
 class LineNode: SCNNode
 {
-    // MARK: - Initializer
-    /**
-     Initializes the `LineNode` between two points
-     
-     ```
-     let CylNode = LineNode(
-     parent: self.rootNode,
-     v1:    SCNVector3(x:sender.x, y:sender.y, z:sender.z),
-     v2: SCNVector3(x:receiver.x, y:receiver.y, z:receiver.z),
-     radius: 0.2,
-     radSegmentCount: 6,
-     color: UIColor.darkGrayColor()
-     )
-     mySCNScene.rootNode.addChildNode(CylNode)
-     ```
-     
+    /*
      - Parameters:
      - parent: Needed to add node to your SceneKit
      - source: Source point of the line
@@ -35,6 +19,7 @@ class LineNode: SCNNode
      - radius: SCNCylinder initializator need a radius
      - radSegmentCount: SCNCylinder definition for the number of segment for the cylinder
      */
+    
     init( parent: SCNNode,
           source: SCNVector3,
           destination: SCNVector3,
@@ -72,7 +57,6 @@ class LineNode: SCNNode
         nodeCyl.position.y = -height/2
         zAlign.addChildNode(nodeCyl)
         
-        //Add it to child
         addChildNode(zAlign)
         
         //set contrainte direction to our vector
@@ -86,7 +70,6 @@ class LineNode: SCNNode
         super.init(coder: aDecoder)
     }
 }
-
 
 private extension SCNVector3 {
 

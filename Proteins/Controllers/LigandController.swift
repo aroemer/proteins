@@ -50,7 +50,7 @@ class LigandController: UIViewController {
             DispatchQueue.main.async {
                 for atom in myHTMLString.components(separatedBy: "\n") {
                     var atomDetails = atom.split(separator: " ")
-                    print(atom)
+//                    print(atom)
                     if atom.starts(with: "ATOM") {
 //                        print(atom)
                         self.dictAtom.append(Atoms(id: Int(atomDetails[1])!, x: Float(atomDetails[6])!, y: Float(atomDetails[7])!, z: Float(atomDetails[8])!, name: String(atomDetails[11])))
@@ -160,6 +160,12 @@ class LigandController: UIViewController {
         
 //        let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
 //        sceneView.addGestureRecognizer(panRecognizer)
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: "sceneTapped:")
+//        let gestureRecognizers = NSMutableArray()
+//        gestureRecognizers.addObject(tapGesture)
+//        if let arr = scnView.gestureRecognizers { gestureRecognizers.addObjectsFromArray(arr) }
+//        scnView.gestureRecognizers = gestureRecognizers as [AnyObject]
 
     }
     
@@ -187,13 +193,4 @@ class LigandController: UIViewController {
     }
     
     
-}
-private extension SCNVector3{
-    func distance(receiver:SCNVector3) -> Float{
-        let xd = receiver.x - self.x
-        let yd = receiver.y - self.y
-        let zd = receiver.z - self.z
-        let distance = Float(sqrt(xd * xd + yd * yd + zd * zd))
-        return (distance)
-    }
 }
