@@ -21,9 +21,6 @@ class LigandController: UIViewController {
     var dictAtom = [Atoms]()
     let scene = SCNScene()
 
-//    var dictConect: [String]
-//    var scene = SCNScene()
-
 //    var segmentedControl: UISegmentedControl!
 
     

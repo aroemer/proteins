@@ -24,7 +24,7 @@ class ListController: UITableViewController {
         createLigandArray()
         setupTableView()
 
-        self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = true
         view.backgroundColor = .white
         title = "Ligands"
     

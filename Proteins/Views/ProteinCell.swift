@@ -6,8 +6,6 @@
 //  Copyright © 2018 Audrey ROEMER. All rights reserved.
 //
 
-//https://medium.com/@kemalekren/swift-create-custom-tableview-cell-with-programmatically-in-ios-835d3880513d
-
 import UIKit
 
 class ProteinCell: UITableViewCell {
@@ -37,7 +35,6 @@ class ProteinCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setUpViews()
         setUpConstraints()
     }
