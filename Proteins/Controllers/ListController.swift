@@ -21,6 +21,7 @@ class ListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         createLigandArray()
         setupTableView()
 
@@ -28,7 +29,6 @@ class ListController: UITableViewController {
         view.backgroundColor = .white
         title = "Ligands"
     
-        
         view.addSubview(searchBar)
         searchBar.delegate = self
     }
@@ -36,7 +36,6 @@ class ListController: UITableViewController {
     func setupTableView() {
         tableView.contentInset = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
-//        tableView.backgroundColor = .lightGray
         tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
         
     }
@@ -53,7 +52,7 @@ class ListController: UITableViewController {
             do {
                 let fullText = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 for ligand in fullText.components(separatedBy: "\n") {
-                    dictLigand.append(Ligands(name: ligand, atoms: [], image: UIImage(named: "atom")!))
+                    dictLigand.append(Ligands(ligandName: ligand))
                 }
                 dictLigand.removeLast()
             }
@@ -75,12 +74,11 @@ class ListController: UITableViewController {
             }
         }
         if indexPath.row % 2 == 0 {
-            cell.backgroundColor = .listDarkGray
+            cell.backgroundColor = .listDarkBlue
         }
         else {
-            cell.backgroundColor = .listLighterGray
+            cell.backgroundColor = .listLighterBlue
         }
-        cell.textLabel?.textColor = .white
         let backgroundView = UIView()
         backgroundView.backgroundColor = .listSelectedGray
         cell.selectedBackgroundView = backgroundView
@@ -101,10 +99,8 @@ class ListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ligandController = LigandController()
-        ligandController.delegate = self
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
-//        ligandController.delegate = self
         if isSearching && self.filteredLigands.count != 0 {
             ligandController.record = filteredLigands[indexPath.row]
         }

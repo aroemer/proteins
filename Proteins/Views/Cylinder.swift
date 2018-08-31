@@ -1,5 +1,5 @@
 //
-//  LineNode.swift
+//  Cylinder.swift
 //  Proteins
 //
 //  Created by Audrey Roemer on 29/08/2018.
@@ -9,7 +9,7 @@
 import UIKit
 import SceneKit
 
-class LineNode: SCNNode
+class Cylinder: SCNNode
 {
     /*
      - Parameters:
