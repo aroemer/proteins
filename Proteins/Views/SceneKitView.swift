@@ -57,7 +57,7 @@ class SceneKitView : SCNScene {
             let sphereNode = SCNNode(geometry: sphereGeometry)
             sphereGeometry.firstMaterial?.diffuse.contents = UIColor(red: CGFloat(col.r) / 255.0, green: CGFloat(col.g) / 255.0, blue: CGFloat(col.b) / 255.0, alpha: 1)
             sphereNode.position = SCNVector3(x: atom.x, y: atom.y, z: atom.z)
-            sphereNode.name = atom.name
+            sphereNode.name = "atom: \(atom.name)"
             atomsNode.addChildNode(sphereNode)
         }
         return atomsNode
@@ -76,7 +76,9 @@ class SceneKitView : SCNScene {
                                 destination: SCNVector3(x:toAtom!.x, y:toAtom!.y, z:toAtom!.z),
                                 radius: 0.2,
                                 radSegmentCount: 6,
-                                color: UIColor.darkGray
+                                color: UIColor.darkGray,
+                                fromAtom: fromAtom!,
+                                destAtom: toAtom!
                               )
                 conectsNode.addChildNode(CylNode)
             }

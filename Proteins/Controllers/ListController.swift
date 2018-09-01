@@ -16,28 +16,16 @@ class ListController: UITableViewController {
 
     private let reuseId = "reuseId"
     
-    let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: 40))
-    let topOffset: CGFloat = 64 // a modifier avec autolayout
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        createLigandArray()
-        setupTableView()
-
         self.clearsSelectionOnViewWillAppear = true
         view.backgroundColor = .white
         title = "Ligands"
-    
-        view.addSubview(searchBar)
-        searchBar.delegate = self
-    }
-    
-    func setupTableView() {
-        tableView.contentInset = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.searchBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
         
+        createLigandArray()
+        tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
     }
     
     func createLigandArray() {
@@ -62,28 +50,24 @@ class ListController: UITableViewController {
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ProteinCell
-        DispatchQueue.main.async() {
+//        DispatchQueue.main.async() {
             if self.isSearching && self.filteredLigands.count != 0 {
                 cell.ligand = self.filteredLigands[indexPath.row]
             }
             else {
                 cell.ligand = self.dictLigand[indexPath.row]
             }
-        }
+//        }
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = .listDarkBlue
         }
         else {
             cell.backgroundColor = .listLighterBlue
         }
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .listSelectedGray
-        cell.selectedBackgroundView = backgroundView
+        tableView.backgroundColor = .listDarkGray
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -98,9 +82,9 @@ class ListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let ligandController = LigandController()
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
+        let ligandController = LigandController()
         if isSearching && self.filteredLigands.count != 0 {
             ligandController.record = filteredLigands[indexPath.row]
         }
@@ -111,15 +95,23 @@ class ListController: UITableViewController {
         navigationController?.pushViewController(ligandController, animated: true)
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var frame = self.searchBar.frame
-        frame.origin.y = scrollView.contentOffset.y + topOffset
-        self.searchBar.frame = frame
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let v = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        let searchBar = UISearchBar()
+        v.addSubview(searchBar)
+        searchBar.delegate = self
+        searchBar.barTintColor = .listSelectedGray
+        searchBar.placeholder = "Search"
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.backgroundColor = .listSelectedGray
+        textFieldInsideSearchBar?.textColor = UIColor.white
+        let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
+        textFieldInsideSearchBarLabel?.textColor = UIColor.white
+        
+        _ = searchBar.constraint(.leading, to: v, constant: 0)
+        _ = searchBar.constraint(.trailing, to: v, constant: 0)
+        _ = searchBar.constraint(.top, to: v, constant: 0)
+        _ = searchBar.constraint(.bottom, to: v, constant: 0)
+        return v
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-//        searchBar.text = ""
-//        isSearching = false
-    }
-    
 }

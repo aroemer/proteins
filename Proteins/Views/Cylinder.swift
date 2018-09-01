@@ -25,7 +25,9 @@ class Cylinder: SCNNode
           destination: SCNVector3,
           radius: CGFloat,//somes option for the cylinder
         radSegmentCount: Int, //other option
-        color: UIColor )// color of your node object
+        color: UIColor,
+        fromAtom: Atoms,
+        destAtom: Atoms)// color of your node object
     {
         super.init()
         
@@ -54,12 +56,13 @@ class Cylinder: SCNNode
         
         //Create node with cylinder
         let nodeCyl = SCNNode(geometry: cyl )
+        nodeCyl.name = "bond: \(String(describing: fromAtom.name)) - \(String(describing: destAtom.name))"
         nodeCyl.position.y = -height/2
         zAlign.addChildNode(nodeCyl)
         
         addChildNode(zAlign)
         
-        //set contrainte direction to our vector
+        //set contraints direction to our vector
         constraints = [SCNLookAtConstraint(target: nodeDestination)]
     }
     

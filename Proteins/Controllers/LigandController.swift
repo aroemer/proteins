@@ -17,6 +17,9 @@ class LigandController: UIViewController {
             title = ligand.name
         }
     }
+    
+    let scnView = SCNView()
+
 
 //    var segmentedControl: UISegmentedControl!
 
@@ -75,12 +78,29 @@ class LigandController: UIViewController {
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3Make(0, 0, 25)
         scene.rootNode.addChildNode(cameraNode)
-        let scnView = SCNView(frame: view.frame)
+        
         view.addSubview(scnView)
         scnView.scene = SceneKitView(ligand : record!)
-        scnView.backgroundColor = UIColor.black
+        scnView.backgroundColor = .listDarkGray
         scnView.allowsCameraControl = true
         scnView.pointOfView = cameraNode
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(recognizer:)))
+        scnView.addGestureRecognizer(tapGesture)
+        
+        _ = scnView.fill(view)
+    }
+    
+    @objc func tapGesture(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: scnView)
+        let hitResults = scnView.hitTest(location, options: nil)
+        if hitResults.count > 0 {
+            guard let atomName = hitResults[0].node.name else { print("no name"); return }
+            print(atomName)
+        }
+        else {
+            print("no atom in here")
+        }
+
         
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(recognizer:)))
         //        sceneView.addGestureRecognizer(tapGesture)
