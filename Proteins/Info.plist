@@ -24,6 +24,8 @@
 	<string>LaunchScreen</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Proteins needs permission to save this image to your Photos Library</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

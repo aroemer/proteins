@@ -82,17 +82,19 @@ class ListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
         let ligandController = LigandController()
-        if isSearching && self.filteredLigands.count != 0 {
-            ligandController.record = filteredLigands[indexPath.row]
+        DispatchQueue.main.async {
+            if self.isSearching && self.filteredLigands.count != 0 {
+                ligandController.record = self.filteredLigands[indexPath.row]
+            }
+            else {
+                ligandController.record = self.dictLigand[indexPath.row]
+            }
+            self.navigationController?.pushViewController(ligandController, animated: true)
         }
-        else {
-            ligandController.record = dictLigand[indexPath.row]
-        }
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        navigationController?.pushViewController(ligandController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

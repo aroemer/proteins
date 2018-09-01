@@ -20,18 +20,16 @@ class LigandController: UIViewController {
     
     let scnView = SCNView()
 
-
 //    var segmentedControl: UISegmentedControl!
-
-    
 //    let nameTF = UILabel(frame: CGRect(x: 20, y: 50, width: 200, height: 30))
     
     override func viewDidLoad() {
+        let shareBar: UIBarButtonItem = UIBarButtonItem.init(barButtonSystemItem:.action, target: self, action: #selector(LigandController.shareButton))
+        
+        self.navigationItem.rightBarButtonItem = shareBar
         super.viewDidLoad()
-        parsePdbFile()
-        sceneSetup()
-
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            parsePdbFile()
+            sceneSetup()
         
 //        segmentedControl = UISegmentedControl(items: ["Tweets", "Media", "Likes"])
 //        self.addSubview(segmentedControl)
@@ -88,6 +86,10 @@ class LigandController: UIViewController {
         scnView.addGestureRecognizer(tapGesture)
         
         _ = scnView.fill(view)
+//        DispatchQueue.main.sync {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//        }
+
     }
     
     @objc func tapGesture(recognizer: UITapGestureRecognizer) {
@@ -100,21 +102,12 @@ class LigandController: UIViewController {
         else {
             print("no atom in here")
         }
-
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(recognizer:)))
-        //        sceneView.addGestureRecognizer(tapGesture)
     }
-
-//        let panRecognizer = UIPanGestureRecognizer(target: self, action: "panGesture:")
-//        sceneView.addGestureRecognizer(panRecognizer)
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: "sceneTapped:")
-//        let gestureRecognizers = NSMutableArray()
-//        gestureRecognizers.addObject(tapGesture)
-//        if let arr = scnView.gestureRecognizers { gestureRecognizers.addObjectsFromArray(arr) }
-//        scnView.gestureRecognizers = gestureRecognizers as [AnyObject]
-
+    
+    @objc func shareButton() {
+        let textShare = "Look at this beautiful ligand"
+        let activityViewController = UIActivityViewController(activityItems: [textShare, scnView.snapshot()], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func setUpValues() {
@@ -127,11 +120,6 @@ class LigandController: UIViewController {
     
     func setUpConstraints() {
         //add autolayout contstraints
-//        sceneView.translatesAutoresizingMaskIntoConstraints = false
-//        sceneView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-//        sceneView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-//        sceneView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-//        sceneView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
 //        let edgesInset: CGFloat = 10.0
 //        let centerOffset: CGFloat = 62.0
 //        segmentedControl.autoPinEdge(toSuperviewEdge: .bottom, withInset: edgesInset)
@@ -139,5 +127,4 @@ class LigandController: UIViewController {
 //        segmentedControl.autoPinEdge(toSuperviewEdge: .right, withInset: edgesInset)
         
     }
-
-
+}
