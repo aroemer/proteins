@@ -11,10 +11,12 @@ import SceneKit
 class SceneKitView : SCNScene {
     
     var ligand : Ligands
+    let hydrogens : Bool
     
-    init(ligand:Ligands) {
+    init(ligand:Ligands, hydrogens: Bool) {
         
         self.ligand = ligand
+        self.hydrogens = hydrogens
         super.init()
         
         lightSetup()
@@ -53,6 +55,11 @@ class SceneKitView : SCNScene {
         for atom in ligand.allAtoms {
             var col: Color
             col = ColorFactory.makeCPKColor(atom: atom)
+            
+            if hydrogens == false && atom.name == "H" {
+                continue
+            }
+            
             let sphereGeometry = SCNSphere(radius: 0.5)
             let sphereNode = SCNNode(geometry: sphereGeometry)
             sphereGeometry.firstMaterial?.diffuse.contents = UIColor(red: CGFloat(col.r) / 255.0, green: CGFloat(col.g) / 255.0, blue: CGFloat(col.b) / 255.0, alpha: 1)
@@ -70,6 +77,11 @@ class SceneKitView : SCNScene {
             let fromAtom = ligand.getAtom(id: conect.fromAtom!)
             for elem in conect.toAtom {
                 let toAtom = ligand.getAtom(id: elem)
+                
+                if hydrogens == false && (toAtom!.name == "H" || fromAtom!.name == "H") {
+                    continue
+                }
+                
                 let CylNode = Cylinder(
                                 parent: self.rootNode,
                                 source: SCNVector3(x:fromAtom!.x, y:fromAtom!.y, z:fromAtom!.z),

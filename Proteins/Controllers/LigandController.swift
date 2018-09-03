@@ -19,6 +19,7 @@ class LigandController: UIViewController {
     }
     
     let scnView = SCNView()
+    let switchButton = UISwitch()
 
 //    var segmentedControl: UISegmentedControl!
 //    let nameTF = UILabel(frame: CGRect(x: 20, y: 50, width: 200, height: 30))
@@ -30,8 +31,9 @@ class LigandController: UIViewController {
         super.viewDidLoad()
             parsePdbFile()
             sceneSetup()
+            switchSetup()
         
-//        segmentedControl = UISegmentedControl(items: ["Tweets", "Media", "Likes"])
+//        segmentedControl = UISegmentedControl(items: ["Stick & Balls", "Other", "Other"])
 //        self.addSubview(segmentedControl)
 
 //        setUpValues()
@@ -70,6 +72,28 @@ class LigandController: UIViewController {
         return nil
     }
     
+    func switchSetup() {
+        switchButton.isOn = true
+        switchButton.thumbTintColor = .white
+        switchButton.tintColor = .white
+        switchButton.onTintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        switchButton.addTarget(self, action: #selector(switchAction(sender:)), for: UIControlEvents.valueChanged)
+        scnView.addSubview(switchButton)
+        _ = switchButton.constraint(.trailing, to: scnView, constant: 30)
+        _ = switchButton.constraint(.top, to: scnView, constant: 80)
+
+    }
+    
+    @objc func switchAction(sender: UISwitch) {
+        if sender.isOn {
+            scnView.scene = SceneKitView(ligand : record!, hydrogens : true)
+        }
+        else {
+            scnView.scene = SceneKitView(ligand : record!, hydrogens : false)
+
+        }
+    }
+    
     func sceneSetup() {
         let scene = SCNScene()
         let cameraNode = SCNNode()
@@ -78,7 +102,7 @@ class LigandController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
         
         view.addSubview(scnView)
-        scnView.scene = SceneKitView(ligand : record!)
+        scnView.scene = SceneKitView(ligand : record!, hydrogens : true)
         scnView.backgroundColor = .listDarkGray
         scnView.allowsCameraControl = true
         scnView.pointOfView = cameraNode
