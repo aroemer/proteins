@@ -10,29 +10,60 @@ import SceneKit
 
 class SceneKitView : SCNScene {
     
-    var ligand : Ligands
-    let hydrogens : Bool
+    enum ModelType {
+        case sticksAndBalls
+        case spaceFilling
+    }
     
-    init(ligand:Ligands, hydrogens: Bool) {
+    var ligand : Ligands
+    public let hydrogens : Bool
+    public var cameraNode: SCNNode?
+    public let modelType : ModelType
+    let ligandNode : SCNNode?
+    
+    init(ligand:Ligands, hydrogens: Bool, modelType: ModelType, camera: SCNNode?) {
         
         self.ligand = ligand
         self.hydrogens = hydrogens
+        cameraNode = camera
+        self.modelType = modelType
+        ligandNode = SCNNode()
         super.init()
         
         lightSetup()
-        self.rootNode.addChildNode(addAtoms())
-        self.rootNode.addChildNode(addConects())
+        
+        self.rootNode.addChildNode(ligandNode!)
+        ligandNode?.addChildNode(addAtoms())
+        ligandNode?.addChildNode(addConects())
+        if (cameraNode == nil) {
+            setUpCamera()
+        }
+        startRotate()
+
+        self.rootNode.addChildNode(cameraNode!)
+//        let camNode = self.rootNode.childNode(withName: "Camera", recursively: false)
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func setUpCamera() {
-//        let cameraNode = SCNNode()
-//        cameraNode.camera = SCNCamera()
-//        cameraNode.position = SCNVector3Make(0, 0, 25)
-//        self.rootNode.addChildNode(cameraNode)
-//    }
+    public func startRotate() {
+        let rotateNode = SCNAction.rotateBy(x: 0, y: CGFloat(Double.pi / 4), z: 0, duration: TimeInterval(2))
+        let infiniteRotate = SCNAction.repeatForever(rotateNode)
+        ligandNode?.runAction(infiniteRotate, forKey: "infiniteRotate")
+    }
+    
+    public func stopRotate() {
+        ligandNode?.removeAction(forKey: "infiniteRotate")
+    }
+    
+    func setUpCamera() {
+        cameraNode = SCNNode()
+        cameraNode?.name = "Camera"
+        cameraNode?.camera = SCNCamera()
+        cameraNode?.position = SCNVector3Make(0, 0, 25)
+    }
     
     func lightSetup() {
         let ambientLightNode = SCNNode()
@@ -60,7 +91,18 @@ class SceneKitView : SCNScene {
                 continue
             }
             
-            let sphereGeometry = SCNSphere(radius: 0.5)
+            var sphereGeometry : SCNSphere
+            if modelType == .sticksAndBalls {
+                sphereGeometry = SCNSphere(radius: 0.5)
+            } else if modelType == .spaceFilling {
+                sphereGeometry = SCNSphere(radius: 1.5)
+                if atom.name == "H" {
+                    sphereGeometry = SCNSphere(radius: 1)
+                }
+            } else {
+                sphereGeometry = SCNSphere(radius: 1)
+            }
+            
             let sphereNode = SCNNode(geometry: sphereGeometry)
             sphereGeometry.firstMaterial?.diffuse.contents = UIColor(red: CGFloat(col.r) / 255.0, green: CGFloat(col.g) / 255.0, blue: CGFloat(col.b) / 255.0, alpha: 1)
             sphereNode.position = SCNVector3(x: atom.x, y: atom.y, z: atom.z)
@@ -74,16 +116,20 @@ class SceneKitView : SCNScene {
         let conectsNode = SCNNode()
 
         for conect in ligand.allConects {
+            
             let fromAtom = ligand.getAtom(id: conect.fromAtom!)
             for elem in conect.toAtom {
                 let toAtom = ligand.getAtom(id: elem)
                 
+                if toAtom == nil || fromAtom == nil {
+                    continue
+                }
                 if hydrogens == false && (toAtom!.name == "H" || fromAtom!.name == "H") {
                     continue
                 }
                 
                 let CylNode = Cylinder(
-                                parent: self.rootNode,
+                                parent: conectsNode,
                                 source: SCNVector3(x:fromAtom!.x, y:fromAtom!.y, z:fromAtom!.z),
                                 destination: SCNVector3(x:toAtom!.x, y:toAtom!.y, z:toAtom!.z),
                                 radius: 0.2,

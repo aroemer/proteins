@@ -25,6 +25,8 @@
 		94A433D62129B116007933E0 /* ProteinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A433D52129B116007933E0 /* ProteinCell.swift */; };
 		94A5BF012126D6EE00AA4090 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5BF002126D6EE00AA4090 /* ListController.swift */; };
 		94A5BF032126FF4800AA4090 /* TouchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5BF022126FF4700AA4090 /* TouchController.swift */; };
+		D5D0501E213EF0B000FA050A /* LigandControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0501D213EF0B000FA050A /* LigandControllerConstraints.swift */; };
+		D5D05020213EF17500FA050A /* LigandControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0501F213EF17500FA050A /* LigandControllerActions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		94A433D52129B116007933E0 /* ProteinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinCell.swift; sourceTree = "<group>"; };
 		94A5BF002126D6EE00AA4090 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		94A5BF022126FF4700AA4090 /* TouchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchController.swift; sourceTree = "<group>"; };
+		D5D0501D213EF0B000FA050A /* LigandControllerConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandControllerConstraints.swift; sourceTree = "<group>"; };
+		D5D0501F213EF17500FA050A /* LigandControllerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandControllerActions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				94A5BF002126D6EE00AA4090 /* ListController.swift */,
 				76D72ECC2130A90400C52D82 /* LigandController.swift */,
 				94A5BF022126FF4700AA4090 /* TouchController.swift */,
+				D5D0501D213EF0B000FA050A /* LigandControllerConstraints.swift */,
+				D5D0501F213EF17500FA050A /* LigandControllerActions.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -220,6 +226,7 @@
 				7619724121388C0F00D618BC /* SceneKitView.swift in Sources */,
 				9475DDD22136FAC70098CCFB /* UIView + Constraint.swift in Sources */,
 				764E326C2135A25E00366E8C /* ColorFactory.swift in Sources */,
+				D5D0501E213EF0B000FA050A /* LigandControllerConstraints.swift in Sources */,
 				94A433D62129B116007933E0 /* ProteinCell.swift in Sources */,
 				764E326E2135A35000366E8C /* Color.swift in Sources */,
 				764D5C6F21345A7B00D95104 /* Atoms.swift in Sources */,
@@ -227,6 +234,7 @@
 				764E32722135FDFC00366E8C /* Cylinder.swift in Sources */,
 				94A3B77F2126D64D001AAC40 /* AppDelegate.swift in Sources */,
 				764D5C6D213402AD00D95104 /* LigandController.swift in Sources */,
+				D5D05020213EF17500FA050A /* LigandControllerActions.swift in Sources */,
 				76D72EC8213092C300C52D82 /* TableView + Search.swift in Sources */,
 				761972432138931B00D618BC /* Conects.swift in Sources */,
 				94A5BF032126FF4800AA4090 /* TouchController.swift in Sources */,

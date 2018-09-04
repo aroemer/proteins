@@ -16,10 +16,12 @@ class ListController: UITableViewController {
 
     private let reuseId = "reuseId"
     
+    var activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = true
-        view.backgroundColor = .white
+        view.backgroundColor = .listDarkGray
         title = "Ligands"
         
         createLigandArray()
@@ -66,6 +68,10 @@ class ListController: UITableViewController {
         else {
             cell.backgroundColor = .listLighterBlue
         }
+        let backView = UIView()
+        backView.backgroundColor = .listSelectedGray
+        cell.selectedBackgroundView = backView
+//        cell.contentView.backgroundColor = .listDarkGray
         tableView.backgroundColor = .listDarkGray
         return cell
     }
@@ -86,7 +92,7 @@ class ListController: UITableViewController {
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
         let ligandController = LigandController()
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             if self.isSearching && self.filteredLigands.count != 0 {
                 ligandController.record = self.filteredLigands[indexPath.row]
             }
@@ -94,7 +100,7 @@ class ListController: UITableViewController {
                 ligandController.record = self.dictLigand[indexPath.row]
             }
             self.navigationController?.pushViewController(ligandController, animated: true)
-        }
+//        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
