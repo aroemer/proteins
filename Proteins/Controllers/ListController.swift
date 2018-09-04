@@ -26,7 +26,6 @@ class ListController: UITableViewController {
         
         createLigandArray()
         tableView.register(ProteinCell.self, forCellReuseIdentifier: reuseId)
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
     
@@ -54,14 +53,12 @@ class ListController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ProteinCell
-//        DispatchQueue.main.async() {
             if self.isSearching && self.filteredLigands.count != 0 {
                 cell.ligand = self.filteredLigands[indexPath.row]
             }
             else {
                 cell.ligand = self.dictLigand[indexPath.row]
             }
-//        }
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = .listDarkBlue
         }
@@ -71,7 +68,6 @@ class ListController: UITableViewController {
         let backView = UIView()
         backView.backgroundColor = .listSelectedGray
         cell.selectedBackgroundView = backView
-//        cell.contentView.backgroundColor = .listDarkGray
         tableView.backgroundColor = .listDarkGray
         return cell
     }
@@ -92,7 +88,6 @@ class ListController: UITableViewController {
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         selectedCell.contentView.backgroundColor = .listSelectedGray
         let ligandController = LigandController()
-//        DispatchQueue.main.async {
             if self.isSearching && self.filteredLigands.count != 0 {
                 ligandController.record = self.filteredLigands[indexPath.row]
             }
@@ -100,7 +95,6 @@ class ListController: UITableViewController {
                 ligandController.record = self.dictLigand[indexPath.row]
             }
             self.navigationController?.pushViewController(ligandController, animated: true)
-//        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

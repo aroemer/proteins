@@ -22,7 +22,7 @@ extension LigandController {
     }
     
     func segmentedSetup() {
-        segmentedControl = UISegmentedControl(items: ["Stick & Balls", "Space filling"])
+        segmentedControl = UISegmentedControl(items: ["Sticks & Balls", "Space filling"])
         scnView.addSubview(segmentedControl)
         segmentedControl.addTarget(self, action: #selector(changeModel(sender:)), for: .valueChanged)
         
@@ -37,7 +37,7 @@ extension LigandController {
         scnView.addSubview(switchLabel)
         _ = infoLabel.constraint(dimension: .width, constant: 200)
         _ = infoLabel.constraint(dimension: .height, constant: 50)
-        _ = infoLabel.constraint(.bottom, to: segmentedControl, .top, constant: 30)
+        _ = infoLabel.constraint(.bottom, to: segmentedControl, .top, constant: -5)
         _ = infoLabel.center(.horizontaly, scnView)
         
         _ = switchLabel.constraint(dimension: .width, constant: 100)

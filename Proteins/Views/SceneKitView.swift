@@ -40,9 +40,7 @@ class SceneKitView : SCNScene {
         }
         startRotate()
 
-        self.rootNode.addChildNode(cameraNode!)
-//        let camNode = self.rootNode.childNode(withName: "Camera", recursively: false)
-        
+        self.rootNode.addChildNode(cameraNode!)        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

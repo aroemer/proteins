@@ -57,7 +57,7 @@ extension LigandController {
     }
     
     @objc func shareButton() {
-        let textShare = "Look at this beautiful ligand"
+        let textShare = "Look at this beautiful \(String(describing: record!.name)) ligand"
         let activityViewController = UIActivityViewController(activityItems: [textShare, scnView.snapshot()], applicationActivities: nil)
         DispatchQueue.main.async {
             self.present(activityViewController, animated: true, completion: nil)

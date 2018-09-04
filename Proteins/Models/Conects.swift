@@ -32,8 +32,4 @@ class Conects {
         guard (atomString.starts(with: "CONECT")) else { return nil }
         data = conectData
     }
-    
-    
-    
-    
 }

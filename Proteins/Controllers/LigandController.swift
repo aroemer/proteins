@@ -21,7 +21,7 @@ class LigandController: UIViewController {
     lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 32)
+        label.font = .systemFont(ofSize: 20)
         label.textColor = .white
         return label
     }()
@@ -86,10 +86,7 @@ class LigandController: UIViewController {
     func parsePdbFile() {
         let myURLString = "https://files.rcsb.org/ligands/\(String(describing: record!.name.first!))/\(String(describing: record!.name))/\(String(describing: record!.name))_ideal.pdb"
         
-        guard let myURL = URL(string: myURLString) else {
-            print("Error: \(myURLString) doesn't seem to be a valid URL")
-            return
-        }
+        guard let myURL = URL(string: myURLString) else { return }
         do {
             let myHTMLString = try String(contentsOf: myURL, encoding: String.Encoding.utf8)
             for line in myHTMLString.components(separatedBy: "\n") {
