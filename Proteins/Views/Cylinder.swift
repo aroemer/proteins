@@ -11,6 +11,9 @@ import SceneKit
 
 class Cylinder: SCNNode
 {
+    public let fromAtoms: Atoms?
+    public let destAtoms: Atoms?
+    
     init( parent: SCNNode,
           source: SCNVector3,
           destination: SCNVector3,
@@ -20,6 +23,8 @@ class Cylinder: SCNNode
           fromAtom: Atoms,
           destAtom: Atoms)
     {
+        self.fromAtoms = fromAtom
+        self.destAtoms = destAtom
         super.init()
         
         let height = source.distance(receiver: destination)
@@ -44,9 +49,13 @@ class Cylinder: SCNNode
     }
     
     override init() {
+        self.fromAtoms = nil
+        self.destAtoms = nil
         super.init()
     }
     required init?(coder aDecoder: NSCoder) {
+        self.fromAtoms = nil
+        self.destAtoms = nil
         super.init(coder: aDecoder)
     }
 }

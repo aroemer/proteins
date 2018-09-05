@@ -107,7 +107,7 @@ class LigandController: UIViewController {
     }
     
     func sceneUpdate(hydrogens: Bool, modelType: SceneKitView.ModelType) {
-        scnView.scene = SceneKitView(ligand : record!, hydrogens : hydrogens, modelType: modelType, camera: scnView.pointOfView)
+        scnView.scene = SceneKitView(ligand : record!, hydrogens : hydrogens, modelType: modelType, camera: scnView.pointOfView, rotating: (scnView.scene as! SceneKitView).rotating(), rotationState: (scnView.scene as! SceneKitView).ligandNode?.eulerAngles)
         guard let myScene = scnView.scene as? SceneKitView else {
             return
         }
@@ -118,7 +118,7 @@ class LigandController: UIViewController {
     func sceneSetup() {
         view.addSubview(scnView)
         scnView.backgroundColor = .listDarkGray
-        scnView.scene = SceneKitView(ligand : record!, hydrogens : true, modelType: .sticksAndBalls, camera: nil)
+        scnView.scene = SceneKitView(ligand : record!, hydrogens : true, modelType: .sticksAndBalls, camera: nil, rotating: true)
         scnView.allowsCameraControl = true
         let cameraNode = scnView.scene?.rootNode.childNode(withName: "Camera", recursively: false)
         scnView.pointOfView = cameraNode

@@ -19,9 +19,9 @@ class SceneKitView : SCNScene {
     public let hydrogens : Bool
     public var cameraNode: SCNNode?
     public let modelType : ModelType
-    let ligandNode : SCNNode?
+    public let ligandNode : SCNNode?
     
-    init(ligand:Ligands, hydrogens: Bool, modelType: ModelType, camera: SCNNode?) {
+    init(ligand:Ligands, hydrogens: Bool, modelType: ModelType, camera: SCNNode?, rotating: Bool, rotationState: SCNVector3? = nil) {
         
         self.ligand = ligand
         self.hydrogens = hydrogens
@@ -35,10 +35,15 @@ class SceneKitView : SCNScene {
         self.rootNode.addChildNode(ligandNode!)
         ligandNode?.addChildNode(addAtoms())
         ligandNode?.addChildNode(addConects())
-        if (cameraNode == nil) {
+        if cameraNode == nil {
             setUpCamera()
         }
-        startRotate()
+        if rotating {
+            startRotate()
+        }
+        if rotationState != nil {
+            ligandNode?.eulerAngles = rotationState!
+        }
 
         self.rootNode.addChildNode(cameraNode!)        
     }
@@ -54,6 +59,10 @@ class SceneKitView : SCNScene {
     
     public func stopRotate() {
         ligandNode?.removeAction(forKey: "infiniteRotate")
+    }
+    
+    public func rotating() -> Bool {
+        return ligandNode?.action(forKey: "infiniteRotate") != nil
     }
     
     func setUpCamera() {
@@ -112,6 +121,7 @@ class SceneKitView : SCNScene {
     
     func addConects() -> SCNNode {
         let conectsNode = SCNNode()
+        var cylinders : [Cylinder] = [Cylinder]()
 
         for conect in ligand.allConects {
             
@@ -126,6 +136,9 @@ class SceneKitView : SCNScene {
                     continue
                 }
                 
+                if (cylinders.filter {($0.destAtoms?.id)! == fromAtom?.id && $0.fromAtoms?.id == toAtom?.id }.count > 0) {
+                    continue
+                }
                 let CylNode = Cylinder(
                                 parent: conectsNode,
                                 source: SCNVector3(x:fromAtom!.x, y:fromAtom!.y, z:fromAtom!.z),
@@ -136,6 +149,7 @@ class SceneKitView : SCNScene {
                                 fromAtom: fromAtom!,
                                 destAtom: toAtom!
                               )
+                cylinders.append(CylNode)
                 conectsNode.addChildNode(CylNode)
             }
         }
