@@ -11,19 +11,15 @@ import UIKit
 extension ListController : UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearching = searchBar.text != ""
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        isSearching = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
